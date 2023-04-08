@@ -1,6 +1,7 @@
 import requests
 
-host_url = 'http://0.0.0.0:5558'
+# host_url = 'http://0.0.0.0:5558'
+host_url = 'http://host.docker.internal:5558' # docker use
 
 class ProductClient:
 

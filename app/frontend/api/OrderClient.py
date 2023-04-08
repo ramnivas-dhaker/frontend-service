@@ -1,7 +1,8 @@
 from flask import session
 import requests
 
-host_url = 'http://0.0.0.0:5557'
+# host_url = 'http://0.0.0.0:5557'
+host_url = 'http://host.docker.internal:5557'
 class OrderClient:
 
     @staticmethod

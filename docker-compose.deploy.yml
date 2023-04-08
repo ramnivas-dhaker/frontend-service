@@ -14,33 +14,36 @@ networks:
 
 services:
   frontend:
+    container_name: frontend_service_agg
     build:
       context: .
     ports:
       - 5555:5555
     volumes:
       - ./app:/app
-    restart: always
+    restart: on-failure
     networks:
       - order-network
 
   product:
+    container_name: product_service_agg
     build:
-      context: ../product_service.git/
+      context: ../product-service
     ports:
       - 5558:5558
     volumes:
-      - ../product_service.git/app:/app
+      - ../product-service/app:/app
       - product-node-modules:/app/node_modules
     links:
       - product_db
     depends_on:
       - product_db
-    restart: always
+    restart: on-failure
     networks:
       - order-network
 
   product_db:
+    container_name: product_db_agg
     image: mysql:5.7
     volumes:
       - product-db-data:/var/lib/mysql
@@ -52,20 +55,22 @@ services:
       - order-network
 
   user:
+    container_name: user_service_agg
     build:
-      context: ../user_service.git/
+      context: ../user-service
     ports:
       - 5556:5556
     volumes:
-      - ../user_service.git/app:/app
+      - ../user-service/app:/app
       - user-node-modules:/app/node_modules
     depends_on:
       - user_db
-    restart: always
+    restart: on-failure
     networks:
       - order-network
 
   user_db:
+    container_name: user_db_agg
     image: mysql:5.7
     volumes:
       - user-db-data:/var/lib/mysql
@@ -78,20 +83,22 @@ services:
 
 
   order:
+    container_name: order_service_agg
     build:
-      context: ../order_service.git/
+      context: ../order-service
     ports:
       - 5557:5557
     volumes:
-      - ../order_service.git/app:/app
+      - ../order-service/app:/app
       - order-node-modules:/app/node_modules
     depends_on:
       - order_db
-    restart: always
+    restart: on-failure
     networks:
       - order-network
 
   order_db:
+    container_name: order_db_agg
     image: mysql:5.7
     volumes:
       - order-db-data:/var/lib/mysql

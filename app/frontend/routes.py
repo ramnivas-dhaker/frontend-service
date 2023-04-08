@@ -11,6 +11,7 @@ from .api.ProductClient import ProductClient
 # Home page
 @frontend_blueprint.route('/', methods=['GET'])
 def home():
+    print("-------------------")
     # session.clear()
     if current_user.is_authenticated:
         # order = order
@@ -18,6 +19,8 @@ def home():
 
     try:
         products = ProductClient.get_products()
+        print("----------")
+        print(products)
     except requests.exceptions.ConnectionError:
         products = {
             'results': []

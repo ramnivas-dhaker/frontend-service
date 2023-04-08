@@ -1,7 +1,8 @@
 from flask import session
 import requests
 
-host_url = 'http://0.0.0.0:5556'
+# host_url = 'http://0.0.0.0:5556'
+host_url = 'http://host.docker.internal:5556'
 
 class UserClient:
 

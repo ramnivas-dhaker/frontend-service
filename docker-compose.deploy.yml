@@ -17,7 +17,7 @@ services:
     build:
       context: .
     ports:
-      - 80:5000
+      - 5555:5555
     volumes:
       - ./app:/app
     restart: always
@@ -28,7 +28,7 @@ services:
     build:
       context: ../product_service.git/
     ports:
-      - 8081:5000
+      - 5558:5558
     volumes:
       - ../product_service.git/app:/app
       - product-node-modules:/app/node_modules
@@ -41,7 +41,7 @@ services:
       - order-network
 
   product_db:
-    image: mysql:5.7.22
+    image: mysql:5.7
     volumes:
       - product-db-data:/var/lib/mysql
     environment:
@@ -55,7 +55,7 @@ services:
     build:
       context: ../user_service.git/
     ports:
-      - 8082:5000
+      - 5556:5556
     volumes:
       - ../user_service.git/app:/app
       - user-node-modules:/app/node_modules
@@ -66,7 +66,7 @@ services:
       - order-network
 
   user_db:
-    image: mysql:5.7.22
+    image: mysql:5.7
     volumes:
       - user-db-data:/var/lib/mysql
     environment:
@@ -81,7 +81,7 @@ services:
     build:
       context: ../order_service.git/
     ports:
-      - 8083:5000
+      - 5557:5557
     volumes:
       - ../order_service.git/app:/app
       - order-node-modules:/app/node_modules
@@ -92,7 +92,7 @@ services:
       - order-network
 
   order_db:
-    image: mysql:5.7.22
+    image: mysql:5.7
     volumes:
       - order-db-data:/var/lib/mysql
     environment:

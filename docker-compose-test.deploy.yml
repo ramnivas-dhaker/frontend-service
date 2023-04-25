@@ -1,0 +1,107 @@
+version: '3.5'
+
+volumes:
+  product-node-modules:
+  user-node-modules:
+  order-node-modules:
+  product-db-data:
+  user-db-data:
+  order-db-data:
+
+networks:
+  order-network:
+    name: order-network
+    driver: bridge
+    external: false
+
+services:
+  frontend:
+    build:
+      context: .
+    ports:
+      - 5555:5555
+    volumes:
+      - ./app:/app
+    restart: always
+    networks:
+      - order-network
+
+  product:
+    build:
+      context: ../product-service
+      dockerfile: Dockerfile
+    ports:
+      - 5558:5558
+    volumes:
+      - ../product-service/app:/app
+      - product-node-modules:/app/node_modules
+    links:
+      - product_db
+    depends_on:
+      - product_db
+    restart: always
+    networks:
+      - order-network
+
+  product_db:
+    image: mysql:5.7
+    volumes:
+      - product-db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=product
+    restart: always
+    networks:
+      - order-network
+
+  user:
+    build:
+      context: ../user-service
+    ports:
+      - 5556:5556
+    volumes:
+      - ../user-service/app:/app
+      - user-node-modules:/app/node_modules
+    depends_on:
+      - user_db
+    restart: always
+    networks:
+      - order-network
+
+  user_db:
+    image: mysql:5.7
+    volumes:
+      - user-db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=user
+    restart: always
+    networks:
+      - order-network
+
+
+  order:
+    build:
+      context: ../order-service
+    ports:
+      - 5557:5557
+    volumes:
+      - ../order-service/app:/app
+      - order-node-modules:/app/node_modules
+    depends_on:
+      - order_db
+    restart: always
+    networks:
+      - order-network
+
+  order_db:
+    image: mysql:5.7
+    volumes:
+      - order-db-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=order
+    restart: always
+    networks:
+      - order-network
+

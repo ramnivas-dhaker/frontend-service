@@ -27,6 +27,7 @@ services:
   product:
     build:
       context: ../product_service.git/
+      dockerfile: Dockerfile
     ports:
       - 5558:5558
     volumes:

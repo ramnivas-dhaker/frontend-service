@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: frontend-service-deploy
+  name: frontend-service-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-service-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: frontend-service-deploy
+    spec:
+      containers:
+      - image: docker.io/library/frontend-service_frontend
+        name: frontend-service-deploy
+        resources: {}
+        imagePullPolicy: Never
+status: {}

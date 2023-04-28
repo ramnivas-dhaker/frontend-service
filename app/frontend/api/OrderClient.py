@@ -2,6 +2,8 @@ from flask import session
 import requests
 
 # host_url = 'http://0.0.0.0:5557'
+# host_url = 'http://0.0.0.0:5557'
+# host_url = 'http://172.31.0.1:5557'
 host_url = 'http://order:5557'
 class OrderClient:
 

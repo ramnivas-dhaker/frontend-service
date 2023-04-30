@@ -4,14 +4,18 @@ MAINTAINER Ramnivas Dhaker
 
 COPY ./app/requirements.txt /app/requirements.txt
 
-WORKDIR /app
+COPY ./app /frontend-app
+COPY ./order-app /order-app
+COPY ./product-app /product-app
+COPY ./user-app /user-app
+
+WORKDIR /frontend-app
 
 RUN apk add --update \
   && pip install --upgrade pip  \
   && pip install -r requirements.txt \
-  && rm -rf /var/cache/apk/*
-
-COPY ./app /app
+  && rm -rf /var/cache/apk/* \
 
 CMD ["python", "app.py"]
+
 

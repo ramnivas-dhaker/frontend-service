@@ -4,7 +4,8 @@ import requests
 # host_url = 'http://0.0.0.0:5556'
 # host_url = 'http://0.0.0.0:5556'
 # host_url = 'http://user-network:5556'
-host_url = 'http://user:5556'
+# host_url = 'http://user:5556'
+host_url = 'http://user-service.default.svc.cluster.local:5556'
 # host_url = 'http://host.docker.internal:5556'
 
 class UserClient:

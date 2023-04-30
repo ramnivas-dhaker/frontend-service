@@ -1,6 +1,8 @@
 import requests
 
-host_url = 'http://product:5558'
+# host_url = 'http://product:5558'
+host_url = 'http://product-service.default.svc.cluster.local:5558'
+
 # host_url = 'http://172.17.0.1:5558'
 # host_url = 'http://frontend-service_order-network:5558'
 
